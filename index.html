@@ -15,6 +15,10 @@
   --soon: #d6a75d;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, sans-serif;
@@ -205,7 +209,13 @@ function render() {
   const today = new Date();
   today.setHours(0,0,0,0);
 
-  tasks.forEach(task => {
+  const sorted = tasks.slice().sort((a, b) => {
+    const aDate = new Date(a.next);
+    const bDate = new Date(b.next);
+    return aDate - bDate;
+  });
+
+  sorted.forEach(task => {
     const next = new Date(task.next);
     next.setHours(0,0,0,0);
 
